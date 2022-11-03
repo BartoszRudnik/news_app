@@ -1,4 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:news_app/model/article_category.dart';
+import 'package:news_app/model/news_page.dart';
 import 'package:window_manager/window_manager.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +14,15 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   final viewKey = GlobalKey();
 
   int index = 0;
+  final List<NewsPage> pages = const [
+    NewsPage(title: 'Top Headlines', iconData: FluentIcons.news, category: ArticleCategory.general),
+    NewsPage(title: 'Business', iconData: FluentIcons.business_center_logo, category: ArticleCategory.business),
+    NewsPage(title: 'Technology', iconData: FluentIcons.laptop_secure, category: ArticleCategory.technology),
+    NewsPage(title: 'Entertainment', iconData: FluentIcons.my_movies_t_v, category: ArticleCategory.entertainment),
+    NewsPage(title: 'Sports', iconData: FluentIcons.more_sports, category: ArticleCategory.sports),
+    NewsPage(title: 'Science', iconData: FluentIcons.communications, category: ArticleCategory.science),
+    NewsPage(title: 'Health', iconData: FluentIcons.health, category: ArticleCategory.health),
+  ];
 
   @override
   void initState() {
@@ -37,23 +48,15 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
           () => index = value,
         ),
         displayMode: PaneDisplayMode.compact,
-        items: [
-          PaneItem(
-            icon: const Icon(FluentIcons.news),
-            title: const Text("Top headliness"),
-            body: Container(),
-          ),
-          PaneItem(
-            icon: const Icon(FluentIcons.business_center_logo),
-            title: const Text("Business"),
-            body: Container(),
-          ),
-          PaneItem(
-            icon: const Icon(FluentIcons.laptop_secure),
-            title: const Text("Technology"),
-            body: Container(),
-          ),
-        ],
+        items: pages
+            .map<NavigationPaneItem>(
+              (e) => PaneItem(
+                icon: Icon(e.iconData),
+                title: Text(e.title),
+                body: Container(),
+              ),
+            )
+            .toList(),
       ),
     );
   }
