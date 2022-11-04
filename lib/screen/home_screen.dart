@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:news_app/model/article_category.dart';
 import 'package:news_app/model/news_page.dart';
+import 'package:news_app/services/news_api.dart';
 import 'package:news_app/widgets/news_list.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -56,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 title: Text(e.title),
                 body: NewsListPage(
                   newsPage: e,
+                  newsAPI: const NewsAPI(),
                 ),
               ),
             )

@@ -1,9 +1,15 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:news_app/model/article.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class NewsItem extends StatelessWidget {
-  const NewsItem({Key? key}) : super(key: key);
+  const NewsItem({
+    Key? key,
+    required this.article,
+  }) : super(key: key);
+
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class NewsItem extends StatelessWidget {
                   color: material.Colors.grey[300],
                 ),
                 fit: BoxFit.cover,
-                image: "",
+                image: article.urlToImage ?? "",
               ),
             ),
           ),
@@ -41,9 +47,9 @@ class NewsItem extends StatelessWidget {
                 right: 8,
               ),
               child: Text(
-                'Elon Musk offers to purchase Twitter',
+                article.title,
                 style: typography.title!.apply(
-                  fontSizeFactor: 0.75,
+                  fontSizeFactor: 0.55,
                 ),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -60,7 +66,7 @@ class NewsItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Bloomberg - 2 hours ago',
+                    article.captionText(),
                     style: typography.bodyLarge!.apply(
                       fontSizeFactor: 0.8,
                     ),
